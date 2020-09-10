@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -37,7 +38,9 @@ public class LoanServiceImpl implements LoanService{
 	    			 		 cb.equal(loans.get("loanNumber"), id)));
 	
 	    cq.where(predicates.toArray(new Predicate[predicates.size()]));
-	    return entityManager.createQuery(cq).getResultList();
+	    TypedQuery<LoanDetails> query = entityManager.createQuery(cq);
+	    
+	    return  query.getResultList();
     
 	}
 
