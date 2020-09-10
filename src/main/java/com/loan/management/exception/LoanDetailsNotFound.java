@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(basePackages = {"com.loan.management"})
-public class LoanDetailsNotFoundException{
+public class LoanDetailsNotFound{
 
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<?> handleException(HttpServletRequest request, Exception ex) {

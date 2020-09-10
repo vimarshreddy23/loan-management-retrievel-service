@@ -31,8 +31,7 @@ public class LoanServiceImpl implements LoanService{
 	    Root<LoanDetails> loans = cq.from(LoanDetails.class);
 	    
 	    List<Predicate> predicates = new ArrayList<>();
-	   
-	    
+	     
 	    predicates.add(cb.or(cb.like(loans.get("borrowerFullName"), name),
 	    			 		 cb.equal(loans.get("loanAmount"), amount),
 	    			 		 cb.equal(loans.get("loanNumber"), id)));
