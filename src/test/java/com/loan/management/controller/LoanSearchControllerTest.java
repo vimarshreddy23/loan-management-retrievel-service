@@ -40,21 +40,29 @@ class LoanSearchControllerTest {
 		
 		loanDetails = new ArrayList<>();
 		LoanDetails loan = new LoanDetails();
+		loan.setLoanNumber(12345l);
 		loan.setBorrowerContact("789654123");
 		loan.setBorrowerFullName("Borrower 1");
 		loan.setLoanType("Personal Loan");
-		loan.setLoanNumber(12345l);
 		loan.setLoanAmount(200000l);
+		loan.setCreatedBy("User");
+		loan.setLoanInterest("13.5");
+		loan.setLoanTenure("24 Months");
+		loan.setCreatedTime(new Date(123456));
 		loanDetails.add(loan);
 		
 		when(loanService.getLoanDetails(Mockito.anyLong(), Mockito.anyString(), Mockito.anyLong())).thenReturn(loanDetails);
 		ResponseEntity<?> result = loanSearchController.findLoanInfo(loanDetails.get(0).getLoanAmount(), loanDetails.get(0).getLoanNumber(), loanDetails.get(0).getBorrowerFullName());
-		assertEquals(loanDetails, result.getBody());
-		assertEquals(HttpStatus.FOUND, result.getStatusCode());
-
 		List<LoanDetails> data = (List<LoanDetails>) result.getBody();
 		
+		assertEquals(loanDetails, result.getBody());
+		assertEquals(HttpStatus.FOUND, result.getStatusCode());		
 		assertEquals("Personal Loan",data.get(0).getLoanType());
+		assertEquals("24 Months",data.get(0).getLoanTenure());
+		assertEquals("13.5",data.get(0).getLoanInterest());
+		assertEquals("User",data.get(0).getCreatedBy());
+		assertEquals("789654123",data.get(0).getBorrowerContact());
+		assertEquals(new Date(123456),data.get(0).getCreatedTime());
 	}
 	
 	@Test
@@ -63,7 +71,7 @@ class LoanSearchControllerTest {
 		when(loanService.getLoanDetails(Mockito.anyLong(), Mockito.anyString(), Mockito.anyLong())).thenReturn(loanDetails);
 		ResponseEntity<?> result = loanSearchController.findLoanInfo(Mockito.anyLong(), Mockito.anyLong(), Mockito.anyString());
 		assertEquals("No Search Results", result.getBody());
-		assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+		assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());	
+		
 	}
-	
 }

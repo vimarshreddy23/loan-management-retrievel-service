@@ -1,6 +1,9 @@
 package com.loan.management.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -17,7 +20,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import com.loan.management.entity.LoanDetails;
 
 @DataJpaTest
-public class LoanServiceImplTest {
+class LoanServiceImplTest {
 
 	@InjectMocks
 	LoanServiceImpl service;
@@ -38,14 +41,25 @@ public class LoanServiceImplTest {
 	Root<LoanDetails> root;
 	
 	@Test
-	public void getLoanDetailsTest() {
+	void getLoanDetailsTest() {
+		
+		List<LoanDetails> loanDetails = new ArrayList<>();
+		LoanDetails loan = new LoanDetails();
+		loan.setBorrowerContact("789654123");
+		loan.setBorrowerFullName("Borrower 1");
+		loan.setLoanType("Personal Loan");
+		loan.setLoanNumber(12345l);
+		loan.setLoanAmount(200000l);
+		loanDetails.add(loan);
+		
 		Mockito.when(entityManager.getCriteriaBuilder()).thenReturn(cBuilder);
 		Mockito.when(cBuilder.createQuery(LoanDetails.class)).thenReturn(cQuery);
 		Mockito.when(cQuery.from(LoanDetails.class)).thenReturn(root);
 		Mockito.when(entityManager.createQuery(Mockito.any(CriteriaQuery.class))).thenReturn(query);
-		Mockito.when(query.getResultList()).thenReturn(new ArrayList<LoanDetails>());
+		Mockito.when(query.getResultList()).thenReturn(loanDetails);
 		
-		service.getLoanDetails(101L,"harry",0L);
+		List<LoanDetails> result = service.getLoanDetails(101L,"harry",0L);
+		assertEquals("Borrower 1", result.get(0).getBorrowerFullName());
 	}
 	
 	
