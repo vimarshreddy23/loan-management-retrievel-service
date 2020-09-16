@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.loan.management.entity.LoanDetails;
 import com.loan.management.service.LoanServiceImpl;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 @RequestMapping("/api/loans")
@@ -21,6 +22,7 @@ public class LoanSearchController {
 	private LoanServiceImpl loanServiceImpl;
 
 	@GetMapping("/getLoanDetails")
+	@HystrixCommand(fallbackMethod = "findLoanInfoFallback")
 	public ResponseEntity<?> findLoanInfo(
 			@RequestParam(value = "loanNumber", required = false, defaultValue = "0") long number,
 			@RequestParam(value = "loanAmount", required = false, defaultValue = "0") long amount,
@@ -31,4 +33,15 @@ public class LoanSearchController {
 		else
 			return new ResponseEntity<>(filterDetails, HttpStatus.FOUND);
 	}
+	
+	
+	public ResponseEntity<?> findLoanInfoFallback(
+			@RequestParam(value = "loanNumber", required = false, defaultValue = "0") long number,
+			@RequestParam(value = "loanAmount", required = false, defaultValue = "0") long amount,
+			@RequestParam(value = "name", required = false) String fullName) {
+		
+			return ResponseEntity.ok("Technical issue occured, please try again later.");
+	}
+	
+	
 }
