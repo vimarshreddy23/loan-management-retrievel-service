@@ -16,19 +16,19 @@ import com.loan.management.service.LoanServiceImpl;
 @RestController
 @RequestMapping("/api/loans")
 public class LoanSearchController {
-
+	
 	@Autowired
 	private LoanServiceImpl loanServiceImpl;
 
+	
 	@GetMapping("/getLoanDetails")
-	public ResponseEntity<?> findLoanInfo(
-			@RequestParam(value = "loanNumber", required = false, defaultValue = "0") long number,
+	public ResponseEntity<?> findLoanInfo(@RequestParam (value = "loanNumber", required = false, defaultValue = "0") long number,
 			@RequestParam(value = "loanAmount", required = false, defaultValue = "0") long amount,
 			@RequestParam(value = "name", required = false) String fullName) {
 		List<LoanDetails> filterDetails = loanServiceImpl.getLoanDetails(number, fullName, amount);
-		if (filterDetails.isEmpty())
+		if(filterDetails.isEmpty())
 			return new ResponseEntity<>("No Search Results", HttpStatus.NOT_FOUND);
 		else
-			return new ResponseEntity<>(filterDetails, HttpStatus.FOUND);
-	}
+		 return new ResponseEntity<>(filterDetails, HttpStatus.FOUND);
+	}	
 }
