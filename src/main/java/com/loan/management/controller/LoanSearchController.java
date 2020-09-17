@@ -35,10 +35,7 @@ public class LoanSearchController {
 			return new ResponseEntity<>(filterDetails, HttpStatus.OK);
 	}
 
-	public ResponseEntity<?> findLoanInfoFallback(
-			@RequestParam(value = "loanNumber", required = false, defaultValue = "0") long number,
-			@RequestParam(value = "loanAmount", required = false, defaultValue = "0") long amount,
-			@RequestParam(value = "name", required = false) String fullName) {
+	public ResponseEntity<String> findLoanInfoFallback() {
 
 		return ResponseEntity.ok("Technical issue occured, please try again later.");
 	}

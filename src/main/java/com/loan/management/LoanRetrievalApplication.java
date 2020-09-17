@@ -13,7 +13,6 @@ public class LoanRetrievalApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LoanRetrievalApplication.class, args);
-		//log.info("Service is up ....");
 	}
 
 }
