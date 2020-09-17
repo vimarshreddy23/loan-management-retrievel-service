@@ -5,13 +5,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
+
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableHystrix
-public class LoanRetrievalServiceApplication {
+public class LoanRetrievalApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LoanRetrievalServiceApplication.class, args);
+		SpringApplication.run(LoanRetrievalApplication.class, args);
+		//log.info("Service is up ....");
 	}
 
 }

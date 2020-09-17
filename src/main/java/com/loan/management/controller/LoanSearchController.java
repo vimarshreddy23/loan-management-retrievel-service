@@ -23,6 +23,7 @@ public class LoanSearchController {
 
 	@GetMapping("/getLoanDetails")
 	@HystrixCommand(fallbackMethod = "findLoanInfoFallback")
+
 	public ResponseEntity<?> findLoanInfo(
 			@RequestParam(value = "loanNumber", required = false, defaultValue = "0") long number,
 			@RequestParam(value = "loanAmount", required = false, defaultValue = "0") long amount,
@@ -33,15 +34,13 @@ public class LoanSearchController {
 		else
 			return new ResponseEntity<>(filterDetails, HttpStatus.FOUND);
 	}
-	
-	
+
 	public ResponseEntity<?> findLoanInfoFallback(
 			@RequestParam(value = "loanNumber", required = false, defaultValue = "0") long number,
 			@RequestParam(value = "loanAmount", required = false, defaultValue = "0") long amount,
 			@RequestParam(value = "name", required = false) String fullName) {
-		
-			return ResponseEntity.ok("Technical issue occured, please try again later.");
+
+		return ResponseEntity.ok("Technical issue occured, please try again later.");
 	}
-	
-	
+
 }
