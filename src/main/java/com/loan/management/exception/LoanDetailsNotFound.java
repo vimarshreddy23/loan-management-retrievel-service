@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(basePackages = {"com.*"})
+@RestControllerAdvice(basePackages = {"com.loan.management"})
 public class LoanDetailsNotFound{
 
 	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<?> handleException(HttpServletRequest request, Exception ex) {
+	public ResponseEntity<String> handleException(HttpServletRequest request, Exception ex) {
 		return new ResponseEntity<>("Exception Occured", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
