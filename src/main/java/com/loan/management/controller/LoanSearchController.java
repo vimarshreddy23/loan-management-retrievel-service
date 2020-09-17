@@ -29,6 +29,6 @@ public class LoanSearchController {
 		if (filterDetails.isEmpty())
 			return new ResponseEntity<>("No Search Results", HttpStatus.NOT_FOUND);
 		else
-			return new ResponseEntity<>(filterDetails, HttpStatus.FOUND);
+			return new ResponseEntity<>(filterDetails, HttpStatus.OK);
 	}
 }
