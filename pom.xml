@@ -160,6 +160,7 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<finalName>loan-management-retrieval-service</finalName>
 	</build>
 
 </project>
