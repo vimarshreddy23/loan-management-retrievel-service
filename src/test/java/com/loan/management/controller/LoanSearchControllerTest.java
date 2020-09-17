@@ -12,8 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,7 +23,7 @@ import com.loan.management.service.LoanServiceImpl;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.MOCK, classes = { LoanRetrievalApplication.class })
+@WebMvcTest(LoanRetrievalApplication.class)
 class LoanSearchControllerTest {
 
 	@Mock
@@ -56,7 +55,7 @@ class LoanSearchControllerTest {
 		List<LoanDetails> data = (List<LoanDetails>) result.getBody();
 		
 		assertEquals(loanDetails, result.getBody());
-		assertEquals(HttpStatus.FOUND, result.getStatusCode());		
+		assertEquals(HttpStatus.OK, result.getStatusCode());		
 		assertEquals("Personal Loan",data.get(0).getLoanType());
 		assertEquals("24 Months",data.get(0).getLoanTenure());
 		assertEquals("13.5",data.get(0).getLoanInterest());
